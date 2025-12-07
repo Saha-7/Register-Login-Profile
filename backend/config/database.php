@@ -24,7 +24,7 @@ function getMongoDBConnection() {
     try {
         // OPTION 1: Using MongoDB Atlas (Recommended - Cloud)
         // Get this from MongoDB Atlas: Database -> Connect -> Connect your application
-        $connectionString = "mongodb+srv://guvi_user:YOUR_PASSWORD@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority";
+        $connectionString = "";
         
         // OPTION 2: Using Local MongoDB (if installed)
         // Uncomment below and comment above if using local MongoDB
