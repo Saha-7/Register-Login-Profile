@@ -11,14 +11,17 @@ function getRedisConnection() {
     require_once __DIR__ . '/../../vendor/autoload.php';
     
     try {
-        // Read from .env file
+        // Read from .env file and connect to Redis
         $redis = new Predis\Client([
-            'scheme' => $_ENV['REDIS_SCHEME'],      // 'tls' for cloud, 'tcp' for local
-            'host'   => $_ENV['REDIS_HOST'],
-            'port'   => (int)$_ENV['REDIS_PORT'],
-            'password' => $_ENV['REDIS_PASSWORD']
+            'scheme' => $_ENV['REDIS_SCHEME'],        // tcp or tls
+            'host'   => $_ENV['REDIS_HOST'],          // redis-14399.crce217...
+            'port'   => (int)$_ENV['REDIS_PORT'],     // 14399
+            'username' => $_ENV['REDIS_USERNAME'],    // default
+            'password' => $_ENV['REDIS_PASSWORD'],    // Your password
+            'database' => 0                           // Database number
         ]);
         
+        // Test connection
         $redis->ping();
         return $redis;
     } catch(Exception $e) {
