@@ -1,10 +1,20 @@
 <?php
+
+
+// Load environment variables from .env file
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+// Initialize dotenv to read .env file
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
+
 // MySQL Connection (Local XAMPP)
 function getMySQLConnection() {
-    $host = 'localhost';
-    $dbname = 'guvi_internship';
-    $username = 'root';
-    $password = ''; // Default XAMPP password is empty
+    // Read from .env file
+    $host = $_ENV['DB_HOST'];
+    $dbname = $_ENV['DB_NAME'];
+    $username = $_ENV['DB_USER'];
+    $password = $_ENV['DB_PASS'];
     
     try {
         $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -22,13 +32,8 @@ function getMongoDBConnection() {
     require_once __DIR__ . '/../../vendor/autoload.php';
     
     try {
-        // OPTION 1: Using MongoDB Atlas (Recommended - Cloud)
-        // Get this from MongoDB Atlas: Database -> Connect -> Connect your application
-        $connectionString = "";
-        
-        // OPTION 2: Using Local MongoDB (if installed)
-        // Uncomment below and comment above if using local MongoDB
-        // $connectionString = "mongodb://localhost:27017";
+        // Read connection string from .env file
+        $connectionString = $_ENV['MONGO_CONNECTION_STRING'];
         
         $client = new MongoDB\Client($connectionString);
         return $client->guvi_internship->profiles;

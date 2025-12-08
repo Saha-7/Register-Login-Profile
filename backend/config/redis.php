@@ -1,14 +1,24 @@
 <?php
+
+// Load environment variables from .env file
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+// Initialize dotenv to read .env file
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
+
 function getRedisConnection() {
     require_once __DIR__ . '/../../vendor/autoload.php';
     
     try {
+        // Read from .env file
         $redis = new Predis\Client([
-            'scheme' => 'tls',  // Changed to tls for cloud
-            'host'   => 'YOUR_REDIS_HOST',  // e.g., redis-12345.c123.us-east-1-1.ec2.cloud.redislabs.com
-            'port'   => YOUR_REDIS_PORT,    // e.g., 12345
-            'password' => 'YOUR_REDIS_PASSWORD'
+            'scheme' => $_ENV['REDIS_SCHEME'],      // 'tls' for cloud, 'tcp' for local
+            'host'   => $_ENV['REDIS_HOST'],
+            'port'   => (int)$_ENV['REDIS_PORT'],
+            'password' => $_ENV['REDIS_PASSWORD']
         ]);
+        
         $redis->ping();
         return $redis;
     } catch(Exception $e) {
