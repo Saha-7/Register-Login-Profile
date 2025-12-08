@@ -27,7 +27,7 @@ $(document).ready(function() {
         
         // Send AJAX request
         $.ajax({
-            url: 'http://localhost/guvi-internship/backend/api/register.php',
+            url: '/backend/api/register.php',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({

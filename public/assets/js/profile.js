@@ -25,7 +25,7 @@ function loadProfile() {
     const sessionToken = localStorage.getItem('sessionToken');
     
     $.ajax({
-        url: 'http://localhost/guvi-internship/backend/api/profile.php',
+        url: '/backend/api/profile.php',
         type: 'GET',
         headers: {
             'Authorization': sessionToken
@@ -67,7 +67,7 @@ function updateProfile() {
     }
     
     $.ajax({
-        url: 'http://localhost/guvi-internship/backend/api/update_profile.php',
+        url: '/backend/api/update_profile.php',
         type: 'POST',
         contentType: 'application/json',
         headers: {
